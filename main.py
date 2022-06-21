@@ -1,21 +1,22 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import json
-import requests
-from requests_ntlm import HttpNtlmAuth
-import logging
+#import requests
+#from requests_ntlm import HttpNtlmAuth
+#import logging
 import psycopg2
 from psycopg2 import extensions
-
+from Flask import flask
 from datetime import date
-current_year = date.today().year
 
+#current_year = date.today().year
+#CREATE USER transdisp WITH PASSWORD 'transdisppwd';
 db_config = {
-    "host": f"192.168.0.114",
+    "host": f"127.0.0.1",
     f"port": f"5432",
-    f"dbname": f"PIR",
-    f"user": f"pgadmin",
-    f"password": f""# Заменить пароль на пароль от базы
+    f"dbname": f"transdispdb",
+    f"user": f"transdisp",
+    f"password": f"transdisppwd"# Заменить пароль на пароль от базы
 }
 DSN = " ".join("{0}='{1}'".format(k, v) for k, v in db_config.items())
 conn = psycopg2.connect(DSN)
@@ -23,6 +24,7 @@ conn = psycopg2.connect(DSN)
 conn.set_isolation_level(extensions.ISOLATION_LEVEL_AUTOCOMMIT)
 curs = conn.cursor()
 
+app = flask.Flask(__name__)
 #logging.basicConfig(level=logging.DEBUG)
 
 # URL приложения
