@@ -33,8 +33,9 @@ api = Api(app)
 #logging.basicConfig(level=logging.DEBUG)
 class vehicleclasseslist(Resource):
     def get(self):
-            sql_str = 'SELECT "Name", "id" FROM public.vehicleclass '
-            res = curs.execute(sql_str)
+        sql_str = 'SELECT "Name", "id" FROM public.vehicleclass '
+        curs.execute(sql_str)
+        res = curs.fetchall()
         return res
 
 api.add_resource(vehicleclasseslist, '/vehicleclasses')
